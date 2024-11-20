@@ -1,1 +1,8 @@
+# Définir le fichier index par défaut
 DirectoryIndex index.html
+
+# Activer la réécriture d'URL
+RewriteEngine On
+
+# Rediriger toutes les erreurs 404 vers une page spécifique
+ErrorDocument 404 /pokemin/error404.html
