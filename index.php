@@ -1,11 +1,8 @@
 <?php
 define("ROOT", dirname(__FILE__) ); // on veut une constante pour chemin de chargement
-require_once (ROOT . '/Animal/LeoClass.php');
-require_once (ROOT . '/Animal/FelixClass.php');
-require_once (ROOT . '/Animal/SquirteuseClass.php');
 require_once(ROOT . '/utils/functions.php'); // chargement de la caisse à outils
-// require_once(ROOT . '/utils/session.php');
-//manageSession();
+require_once(ROOT . '/utils/session.php');
+manageSession();
 $FORM = extractForm();
 // Dans TOUS les formulaires, je veux un paramètre route
 $ROUTE = extractRoute($FORM);
