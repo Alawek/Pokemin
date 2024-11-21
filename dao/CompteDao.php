@@ -103,7 +103,15 @@ class CompteDao extends AbstractDao implements IDao
             throw $newEx;
         }
      }
-    function delete(int $id) {}
+    function delete(int $id) {
+        $stmt=$this->pdo->prepare("DELETE FROM compte WHERE id_compte = :id");
+        $stmt->bindParam(":id",$id);
+        $stmt->execute();
+        if($this->findById($id)){
+            return "Problème de Suppresion";
+        }
+        return "Suppression ok";
+    }
     function update(IEntity $compte) {}
 
     function login($compte)

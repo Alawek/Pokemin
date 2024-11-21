@@ -34,27 +34,33 @@ class CompteService extends AbstractService implements IService
     function insert(IEntity $c)
     {
         //Code métier, un compte est forcément un rédacteur
-        return $this->getDao()->insert($c);
+        return $this->dao->insert($c);
     }
 
 
-    public function findById(int $id): Compte
+    public function findById(int $id): ?Compte
     {
         return $this->dao->findById($id);
+    }
+
+    public function delete(int $id){
+        return $this->dao->delete($id);
     }
 
 
     function login($compte)
     {
-        return $this->getDao()->login($compte);
+        return $this->dao->login($compte);
     }
 
-    function emailIsAlready($email){
-        return $this->getDao()->emailIsAlready($email);
+    function emailIsAlready($email)
+    {
+        return $this->dao->emailIsAlready($email);
     }
 
-    function pseudoIsAlready($pseudo){
-        return $this->getDao()->pseudoIsAlready($pseudo);
+    function pseudoIsAlready($pseudo)
+    {
+        return $this->dao->pseudoIsAlready($pseudo);
     }
     //______METHODE_______________________________________________________________________________________________________________________________________________________________
 
