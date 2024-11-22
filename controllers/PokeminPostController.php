@@ -71,7 +71,7 @@ class PokeminPostController extends AbstractController implements IController
                 error_log("CYBERSEC mauvais typage pour le niveau d'évolution");
                 _400_Bad_Request();
             }
-            $this->evolution1 = htmlspecialchars($this->form['evolution1'], ENT_QUOTES, 'UTF-8');
+            $this->niveauEvolution1 = htmlspecialchars($this->form['niveauevolution1'], ENT_QUOTES, 'UTF-8');
 
         }
     }
