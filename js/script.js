@@ -1,4 +1,4 @@
-//FETCH
+//FETCH-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 const defaultResponseCallback = function(response) {
     if (!response.ok) {
         throw new Error('Network response was not ok ' + response.statusText);
@@ -25,8 +25,9 @@ function myFetch(formData, dataCallback, url, method, errorCallback = null, resp
     .catch(error => (errorCallback == null ? defaultErrorCallback(error): errorCallback(error) ));
 }
 
-//FETCH
+//FETCH-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+//DOM-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function createP(text) {
     const p = document.createElement('p');
     p.textContent = text;
@@ -49,6 +50,8 @@ function createA(textContent, callback) {
     });
     return button;
 }
+
+//DOM-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 function recuperePokemin(idP,affichePokemin) {
     myFetch(null, affichePokemin, 'index.php?route=Animal&pokemin=' + idP, 'GET');
