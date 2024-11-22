@@ -23,7 +23,7 @@ class CompteDeleteController extends AbstractController implements IController{
             error_log("CYBERSEC l'id n'est pas présent");
             _400_Bad_Request();
         }
-        //Ok
+        
 
     }
 
@@ -39,7 +39,7 @@ class CompteDeleteController extends AbstractController implements IController{
         $this->id=intval($this->form['id']);
     }
     
-//TODO:
+
     function checkRights(){
         error_log($this->controllerName . "->" . __FUNCTION__);
         if(!isLogged()){
@@ -49,7 +49,7 @@ class CompteDeleteController extends AbstractController implements IController{
 
     }
 
-//TODO:
+
     function processRequest(){
         $this->response = $this->service->delete($this->id);
         

@@ -112,7 +112,16 @@ class CompteDao extends AbstractDao implements IDao
         }
         return "Suppression ok";
     }
-    function update(IEntity $compte) {}
+    function update(IEntity $compte)
+    {
+
+        $stmt = $this->pdo->prepare("UPDATE compte SET email=:email, pseudo=:pseudo, password=:password WHERE id_compte=:idCompte");
+        $stmt->bindValue(':email', $compte->getEmail());
+        $stmt->bindValue(':pseudo', $compte->getPseudo());
+        $stmt->bindValue(':password', $compte->getPassword());
+        $stmt->bindValue(':idCompte', $compte->getIdcompte(), PDO::PARAM_INT);
+        $stmt->execute();
+    }
 
     function login($compte)
     {

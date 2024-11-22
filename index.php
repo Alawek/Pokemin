@@ -1,5 +1,6 @@
 <?php
-define("ROOT", dirname(__FILE__) ); // on veut une constante pour chemin de chargement
+define("ROOT", dirname(__FILE__)); // on veut une constante pour chemin de chargement on pourrait rajoute . "/" pour initialiser un slash et ne pas etre obligè de l'ecrire a chaque require.
+require_once(ROOT ."/_config.php");
 require_once(ROOT . '/utils/functions.php'); // chargement de la caisse à outils
 require_once(ROOT . '/utils/session.php');
 manageSession();
