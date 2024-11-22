@@ -29,7 +29,15 @@ class PokeminPostController extends AbstractController implements IController
     {
         //Appel du constructeur de la classe mère AbstractController
         parent::__construct($form, $controllerName);
-        $this->service = new CompteService();
+        $this->service = new PokeminService();
+        $this->idType2 = null;
+        $this->evolution1 = null;
+        $this->niveauEvolution1 = null;
+        $this->evolution2 = null;
+        $this->niveauEvolution2 = null;
+        $this->tauxApparition = null;
+        $this->tauxCapture = null;
+        $this->idDon = null;
     }
     //Méthode
     function checkForm()
@@ -39,10 +47,7 @@ class PokeminPostController extends AbstractController implements IController
             error_log("FORM Information manquante [nom||description||cri||idType1]");
             _400_Bad_Request();
         }
-        trim($this->form['nom']);
-        trim($this->form['description']);
-        trim($this->form['cri']);
-        trim($this->form['idType1']);
+       
     }
 
     function checkCybersec()
@@ -51,38 +56,83 @@ class PokeminPostController extends AbstractController implements IController
             error_log("CYBERSEC Mauvais typage pour l'id type 1");
             _400_Bad_Request();
         }
-        if ((!preg_match('/^[a-zA-ZÀ-ÿ0-9 .,!?-]*$/', $this->form['description'])) ||
-            (!preg_match('/^[a-zA-ZÀ-ÿ0-9 .,!?-]*$/', $this->form['nom'])) ||
-            (!preg_match('/^[a-zA-ZÀ-ÿ0-9 .,!?-]*$/', $this->form['cri']))
+        if ((!preg_match('/^[a-zA-ZÀ-ÿ0-9 .,\'!?-]*$/', $this->form['description'])) ||
+            (!preg_match('/^[a-zA-ZÀ-ÿ0-9 .,\'!?-]*$/', $this->form['nom'])) ||
+            (!preg_match('/^[a-zA-ZÀ-ÿ0-9 .,\'!?-]*$/', $this->form['cri']))
         ) {
-            headerCustom(840, "Caractères non autorisés détectés.");
+            headerCustom(840, "Caracteres non autorises detectes.");
         }
-        $this->description = htmlspecialchars($this->form['description'], ENT_QUOTES, 'UTF-8');
-        if (isset($this->form['evolution1'])) {
+
+        $this->cri = htmlspecialchars(trim($this->form['cri']), ENT_NOQUOTES, 'UTF-8');
+        $this->description = htmlspecialchars(trim($this->form['description']), ENT_NOQUOTES, 'UTF-8');
+        $this->nom = htmlspecialchars(trim($this->form['nom']), ENT_NOQUOTES, 'UTF-8');
+        $this->idType1 = htmlspecialchars(trim($this->form['idType1']), ENT_NOQUOTES, 'UTF-8');
+
+        if (isset($this->form['evolution1'])&& !empty($this->form['evolution1'])) {
             if (!ctype_digit($this->form['evolution1'])) {
-                error_log("CYBERSEC mauvais typage pour id l'evolution1");
+                error_log("CYBERSEC mauvais typage pour id d'evolution1");
                 _400_Bad_Request();
             }
-            $this->evolution1 = htmlspecialchars($this->form['evolution1'], ENT_QUOTES, 'UTF-8');
-
+            $this->evolution1 = htmlspecialchars(trim($this->form['evolution1']), ENT_NOQUOTES, 'UTF-8');
         }
-        if(isset($this->form['niveauevolution1'])){
-            if(!ctype_digit($this->form['niveauevolution1'])){
-                error_log("CYBERSEC mauvais typage pour le niveau d'évolution");
+        if (isset($this->form['niveauEvolution1'])&& !empty($this->form['niveauEvolution1'])) {
+            if (!ctype_digit($this->form['niveauEvolution1'])) {
+                error_log("CYBERSEC mauvais typage pour le niveau d'evolution");
                 _400_Bad_Request();
             }
-            $this->niveauEvolution1 = htmlspecialchars($this->form['niveauevolution1'], ENT_QUOTES, 'UTF-8');
-
+            $this->niveauEvolution1 = htmlspecialchars(trim($this->form['niveauEvolution1']), ENT_NOQUOTES, 'UTF-8');
+        }
+        if (isset($this->form['evolution2'])&& !empty($this->form['evolution2'])) {
+            if (!ctype_digit($this->form['evolution2'])) {
+                error_log("CYBERSEC mauvais typage pour l'id d'evolution2");
+                _400_Bad_Request();
+            }
+            $this->evolution2 = htmlspecialchars(trim($this->form['evolution2']), ENT_NOQUOTES, 'UTF-8');
+        }
+        if (isset($this->form['niveauEvolution2'])&& !empty($this->form['niveauEvolution2'])) {
+            if (!ctype_digit($this->form['niveauEvolution2'])) {
+                error_log("CYBERSEC mauvais typage pour le niveau d'evolution2");
+                _400_Bad_Request();
+            }
+            $this->niveauEvolution2 = htmlspecialchars(trim($this->form['niveauEvolution2']), ENT_NOQUOTES, 'UTF-8');
+        }
+        if (isset($this->form['tauxApparition'])&& !empty($this->form['tauxApparition'])) {
+            if (!ctype_digit($this->form['tauxApparition'])) {
+                error_log("CYBERSEC mauvais typage pour le taux d'apparition");
+                _400_Bad_Request();
+            }
+            $this->tauxApparition = htmlspecialchars(time($this->form['tauxApparition']), ENT_NOQUOTES, 'UTF-8');
+        }
+        if (isset($this->form['tauxCapture'])&& !empty($this->form['tauxCapture'])) {
+            if (!ctype_digit($this->form['tauxCapture'])) {
+                error_log("CYBERSEC mauvais typage pour le taux de capture");
+                _400_Bad_Request();
+            }
+            $this->tauxCapture = htmlspecialchars(time($this->form['tauxCapture']), ENT_NOQUOTES, 'UTF-8');
+        }
+        if (isset($this->form['idDon'])&& !empty($this->form['idDon'])) {
+            if (!ctype_digit($this->form['idDon'])) {
+                error_log("CYBERSEC mauvais typage pour l'id don'");
+                _400_Bad_Request();
+            }
+            $this->idDon = htmlspecialchars(time($this->form['idDon']), ENT_NOQUOTES, 'UTF-8');
+        }
+        if (isset($this->form['idType2'])&& !empty($this->form['idType2'])) {
+            if (!ctype_digit($this->form['idType2'])) {
+                error_log("CYBERSEC mauvais typage pour le deuxieme id type'");
+                _400_Bad_Request();
+            }
+            $this->idType2 = htmlspecialchars(time($this->form['idType2']), ENT_NOQUOTES, 'UTF-8');
         }
     }
+
 
     //TODO:
     function checkRights()
     {
-        error_log($this->controllerName . "->" . __FUNCTION__ .
-            "Vous etes deja connecté");
-        if (isLogged()) {
-            headerCustom(499, "Already Authenficated");
+        
+        if (!isLogged()) {
+            _401_Unauthorized();
         }
     }
 
@@ -90,7 +140,7 @@ class PokeminPostController extends AbstractController implements IController
     //rajouter le 04/11 à 9:35:23:45:01:45:32:51
     function processRequest()
     {
-        $compte = $this->service->getDao()->create($this->nom, $this->description, $this->password);
+        $compte = $this->service->getDao()->create($this->nom, $this->description, $this->cri,$this->evolution1,$this->niveauEvolution1,$this->evolution2,$this->niveauEvolution2,$this->tauxApparition,$this->tauxCapture,$this->idDon,$this->idType1,$this->idType2);
         try {
             $this->response = $this->service->insert($compte);
         } catch (ConstraintUniqueException $ex) {

@@ -15,7 +15,7 @@ class BddSingleton{
     private function __construct(){
         //TODO : coler les parametre de connexion bdd dans un fichier puis include
         try{
-            $this->pdo = new PDO(DSN,USERNAME,PASSWD, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8') );
+            $this->pdo = new PDO(DSN,USERNAME,PASSWD, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4') );
             //Activation des messages d'erreur PDO, car il n'est pas assez bavard
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 

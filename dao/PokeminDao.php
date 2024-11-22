@@ -67,6 +67,33 @@ class PokeminDao extends AbstractDao implements IDao
         return $pokemin;
     }
 
+    function insert(IEntity $pokemin)
+    {
+        var_dump($pokemin);
+        $stmt = $this->pdo->prepare("INSERT INTO pokemin (nom,description,cri,evolution1,niveau_evolution1,evolution2,niveau_evolution2,taux_apparition,taux_capture,id_don,id_type,id_type2) VALUES " .
+            "(:nom,:description,:cri,:ev1,:lvl1,:ev2,:lvl2,:txA,:txC,:don,:type,:type2  )");
+        $stmt->bindValue(':nom', $pokemin->getNom());
+        $stmt->bindValue(':description', $pokemin->getDescription());
+        $stmt->bindValue(':cri', $pokemin->getCri());
+        $stmt->bindValue(':ev1', $pokemin->getEvolution1());
+        $stmt->bindValue(':lvl1', $pokemin->getNiveauEvolution1());
+        $stmt->bindValue(':ev2', $pokemin->getEvolution2());
+        $stmt->bindValue(':lvl2', $pokemin->getNiveauEvolution2());
+        $stmt->bindValue(':txA', $pokemin->getTauxApparition());
+        $stmt->bindValue(':txC', $pokemin->getTauxCapture());
+        $stmt->bindValue(':don', $pokemin->getIdDon());
+        $stmt->bindValue(':type', $pokemin->getIdType1());
+        $stmt->bindValue(':type2', $pokemin->getIdType2());
+        try {
+            $stmt->execute();
+            return $this->pdo->lastInsertId();
+        } catch (PDOException $ex) {
+            $newEx = wrapPDOException($ex);
+            // var_dump($newEx);
+            throw $newEx;
+        }
+    }
+
     function findById(int $id): ?Pokemin
     {
         $stmt = $this->pdo->prepare("SELECT * FROM pokemin  WHERE pokemin.id_pokemin = :id");
@@ -101,33 +128,6 @@ class PokeminDao extends AbstractDao implements IDao
         return $pokemin;
     }
 
-
-    function insert(IEntity $pokemin)
-    {
-        var_dump($pokemin);
-        $stmt = $this->pdo->prepare("INSERT INTO pokemin (nom,description,cri,evolution1,niveau_evolution1,evolution2,niveau_evolution2,taux_apparition,taux_capture,id_don,id_type,id_type2) VALUES " .
-            "(:nom,:description,:cri,:ev1,:lvl1,:ev2,:lvl2,:txA,:txC,:don,:type,:type2  )");
-        $stmt->bindValue(':nom', $pokemin->getNom());
-        $stmt->bindValue(':description', $pokemin->getDescription());
-        $stmt->bindValue(':cri', $pokemin->getCri());
-        $stmt->bindValue(':ev1', $pokemin->getEvolution1());
-        $stmt->bindValue(':lvl1', $pokemin->getNiveauEvolution1());
-        $stmt->bindValue(':ev2', $pokemin->getEvolution2());
-        $stmt->bindValue(':lvl2', $pokemin->getNiveauEvolution2());
-        $stmt->bindValue(':txA', $pokemin->getTauxApparition());
-        $stmt->bindValue(':txC', $pokemin->getTauxCapture());
-        $stmt->bindValue(':don', $pokemin->getIdDon());
-        $stmt->bindValue(':type', $pokemin->getType1());
-        $stmt->bindValue(':type2', $pokemin->getType2());
-        try {
-            $stmt->execute();
-            return $this->pdo->lastInsertId();
-        } catch (PDOException $ex) {
-            $newEx = wrapPDOException($ex);
-            // var_dump($newEx);
-            throw $newEx;
-        }
-    }
     function delete(int $id)
     {
         $stmt = $this->pdo->prepare("DELETE FROM pokemin WHERE id_pokemin = :id");

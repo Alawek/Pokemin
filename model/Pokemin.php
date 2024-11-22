@@ -120,7 +120,7 @@ class Pokemin extends AbstractEntity implements IEntity
 
     function setTauxCapture(?int $tauxcapture)
     {
-        $this->typeCapture = $tauxcapture;
+        $this->tauxCapture = $tauxcapture;
     }
 
     function getTauxApparition(): ?int
