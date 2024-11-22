@@ -22,3 +22,10 @@ Pokemin est un jeu RPG sur navigateur inspiré des jeux de capture et de combat 
 - **Frameworks/Bibliothèques** : 
   - Bootstrap ou TailwindCSS pour le design.
   - [AJAX](https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX) pour des interactions dynamiques.
+
+  <!-- Fichier _config a regler avec vos information de base de donnée
+  define("DSN","mysql:host=localhost;port=3306;dbname=???");
+<!-- define("USERNAME", "???");
+define("PASSWD","???");
+define("ROOT", dirname(__FILE__) ); // constante pour chemin de chargement
+ 

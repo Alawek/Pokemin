@@ -1,5 +1,4 @@
 <?php
-require_once(ROOT . "/_config.php");
 
 // le principe de ce design pattern est de s'assurer que je n'aurai qu'une seule
 //instance de la classe BddSingleton dans toute mon application.

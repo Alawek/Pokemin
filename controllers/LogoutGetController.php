@@ -23,11 +23,11 @@
         function processRequest() {
 			if ( !isLogged() ) {
 				
-				$this->response="Vous êtes deja deconnecter mange couille";
+				$this->response="Deconnection : KO ! Vous etes deja deconnecte(e).";
 
 			}else{
 			reinitSession();
-			$this->response="Déconnection Ok";
+			$this->response="Deconnection : Ok !";
 		}
 	}
 
