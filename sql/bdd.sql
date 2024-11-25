@@ -1,6 +1,5 @@
---Ligne pour créer un utilisateur TOUT PUISSANT!
---CREATE USER 'adminpokemin'@'localhost' IDENTIFIED BY 'adminpokemin';
---GRANT ALL PRIVILEGES ON `pokemin`.* TO 'adminpokemin'@'localhost' WITH GRANT OPTION;
+CREATE USER 'adminpokemin'@'localhost' IDENTIFIED BY 'adminpokemin';
+GRANT ALL PRIVILEGES ON `pokemin`.* TO 'adminpokemin'@'localhost' WITH GRANT OPTION;
 
 
 CREATE TABLE compte(
