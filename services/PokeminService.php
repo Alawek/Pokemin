@@ -47,6 +47,9 @@ class PokeminService extends AbstractService implements IService
         return $this->dao->delete($id);
     }
 
+    public function update(IEntity $pokemin){
+        return $this->dao->update($pokemin);
+    }
 
     
     //______METHODE_______________________________________________________________________________________________________________________________________________________________

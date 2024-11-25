@@ -66,63 +66,63 @@ class PokeminPostController extends AbstractController implements IController
         $this->cri = htmlspecialchars(trim($this->form['cri']), ENT_NOQUOTES, 'UTF-8');
         $this->description = htmlspecialchars(trim($this->form['description']), ENT_NOQUOTES, 'UTF-8');
         $this->nom = htmlspecialchars(trim($this->form['nom']), ENT_NOQUOTES, 'UTF-8');
-        $this->idType1 = htmlspecialchars(trim($this->form['idType1']), ENT_NOQUOTES, 'UTF-8');
+        $this->idType1 = trim(intval($this->form['idType1']));
 
         if (isset($this->form['evolution1'])&& !empty($this->form['evolution1'])) {
             if (!ctype_digit($this->form['evolution1'])) {
                 error_log("CYBERSEC mauvais typage pour id d'evolution1");
                 _400_Bad_Request();
             }
-            $this->evolution1 = htmlspecialchars(trim($this->form['evolution1']), ENT_NOQUOTES, 'UTF-8');
+            $this->evolution1 = trim($this->form['evolution1']);
         }
         if (isset($this->form['niveauEvolution1'])&& !empty($this->form['niveauEvolution1'])) {
             if (!ctype_digit($this->form['niveauEvolution1'])) {
                 error_log("CYBERSEC mauvais typage pour le niveau d'evolution");
                 _400_Bad_Request();
             }
-            $this->niveauEvolution1 = htmlspecialchars(trim($this->form['niveauEvolution1']), ENT_NOQUOTES, 'UTF-8');
+            $this->niveauEvolution1 = trim($this->form['niveauEvolution1']);
         }
         if (isset($this->form['evolution2'])&& !empty($this->form['evolution2'])) {
             if (!ctype_digit($this->form['evolution2'])) {
                 error_log("CYBERSEC mauvais typage pour l'id d'evolution2");
                 _400_Bad_Request();
             }
-            $this->evolution2 = htmlspecialchars(trim($this->form['evolution2']), ENT_NOQUOTES, 'UTF-8');
+            $this->evolution2 = trim($this->form['evolution2']);
         }
         if (isset($this->form['niveauEvolution2'])&& !empty($this->form['niveauEvolution2'])) {
             if (!ctype_digit($this->form['niveauEvolution2'])) {
                 error_log("CYBERSEC mauvais typage pour le niveau d'evolution2");
                 _400_Bad_Request();
             }
-            $this->niveauEvolution2 = htmlspecialchars(trim($this->form['niveauEvolution2']), ENT_NOQUOTES, 'UTF-8');
+            $this->niveauEvolution2 = trim($this->form['niveauEvolution2']);
         }
         if (isset($this->form['tauxApparition'])&& !empty($this->form['tauxApparition'])) {
             if (!ctype_digit($this->form['tauxApparition'])) {
                 error_log("CYBERSEC mauvais typage pour le taux d'apparition");
                 _400_Bad_Request();
             }
-            $this->tauxApparition = htmlspecialchars(time($this->form['tauxApparition']), ENT_NOQUOTES, 'UTF-8');
+            $this->tauxApparition = trim($this->form['tauxApparition']);
         }
         if (isset($this->form['tauxCapture'])&& !empty($this->form['tauxCapture'])) {
             if (!ctype_digit($this->form['tauxCapture'])) {
                 error_log("CYBERSEC mauvais typage pour le taux de capture");
                 _400_Bad_Request();
             }
-            $this->tauxCapture = htmlspecialchars(time($this->form['tauxCapture']), ENT_NOQUOTES, 'UTF-8');
+            $this->tauxCapture = trim($this->form['tauxCapture']);
         }
         if (isset($this->form['idDon'])&& !empty($this->form['idDon'])) {
             if (!ctype_digit($this->form['idDon'])) {
                 error_log("CYBERSEC mauvais typage pour l'id don'");
                 _400_Bad_Request();
             }
-            $this->idDon = htmlspecialchars(time($this->form['idDon']), ENT_NOQUOTES, 'UTF-8');
+            $this->idDon = trim($this->form['idDon']);
         }
         if (isset($this->form['idType2'])&& !empty($this->form['idType2'])) {
             if (!ctype_digit($this->form['idType2'])) {
                 error_log("CYBERSEC mauvais typage pour le deuxieme id type'");
                 _400_Bad_Request();
             }
-            $this->idType2 = htmlspecialchars(time($this->form['idType2']), ENT_NOQUOTES, 'UTF-8');
+            $this->idType2 = trim($this->form['idType2']);
         }
     }
 
