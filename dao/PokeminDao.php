@@ -152,7 +152,7 @@ class PokeminDao extends AbstractDao implements IDao
         $stmt->bindValue(':txA', $pokemin->getTauxApparition());
         $stmt->bindValue(':txC', $pokemin->getTauxCapture());
         $stmt->bindValue(':don', $pokemin->getIdDon());
-        $stmt->bindValue(':type', $pokemin->getIdType1());
+        $stmt->bindValue(':type1', $pokemin->getIdType1());
         $stmt->bindValue(':type2', $pokemin->getIdType2());
         $stmt->bindValue(':idpokemin', $pokemin->getId(), PDO::PARAM_INT);
         $stmt->execute();
