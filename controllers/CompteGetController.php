@@ -21,7 +21,7 @@ class CompteGetController extends AbstractController implements IController
     //Méthode
     function checkForm()
     {
-        if (isset($this->form['id'])) {
+        if (isset($this->form['id']) && !empty($this->form['id'])) {
             if(!$this->service->findById($this->form['id'])){
                 error_log("FORM Article introuvable");
                 _404_Not_Found();
@@ -38,31 +38,27 @@ class CompteGetController extends AbstractController implements IController
 
     function checkCybersec()
     {
-        if (isset($this->form['id'])) {
+        if (isset($this->form['id']) && !empty($this->form['id'])) {
             if (! ctype_digit($this->form['id'])) {
                 error_log("CYBERSEC Receive bad request");
                 _400_Bad_Request();
             }
-            $this->id = intval($this->form['id']);
+            $this->id = intval(trim($this->form['id']));
+
         }
     }
 
     //TODO:
     function checkRights()
     {
-        error_log($this->controllerName . "->" . __FUNCTION__);
-        // if(!isLogged()){
-        //     _401_Unauthorized();
-        // }
-        //Est ce que j'ai besoin de controller les droits redacteur / Modo/ Admin
-
+        
 
     }
 
     //TODO:
     function processRequest()
     {
-        if (isset($this->form['id'])) {
+        if (isset($this->form['id']) && !empty($this->form['id'])) {
             $this->response = $this->service->findById($this->id);
         }
         $this->response = $this->service->findAll();

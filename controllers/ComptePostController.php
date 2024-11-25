@@ -60,14 +60,15 @@ class ComptePostController extends AbstractController implements IController
             error_log("CYBERSEC Votre mot de passe ne contient pas au moins: 1 Majuscule,1 Minuscule, 1 caractère spéciaux, 1 chiffre.");
             _400_Bad_Request();
         }
-        $this->password = $this->form['pwd'];
+        $this->password = htmlspecialchars(trim($this->form['pwd']), ENT_NOQUOTES, 'UTF-8');
+        $this->pseudo = htmlspecialchars(trim($this->form['pseudo']), ENT_NOQUOTES, 'UTF-8');
+        $this->email = htmlspecialchars(trim($this->form['email']), ENT_NOQUOTES, 'UTF-8');
+
     }
 
     //TODO:
     function checkRights()
     {
-        error_log($this->controllerName . "->" . __FUNCTION__ .
-            "Vous etes deja connecté");
         if (isLogged()) {
             headerCustom(499, "Already Authenficated");
         }
