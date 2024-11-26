@@ -4,7 +4,6 @@ require_once(ROOT ."/_config.php");
 require_once(ROOT . '/utils/functions.php'); // chargement de la caisse à outils
 require_once(ROOT . '/utils/session.php');
 manageSession();
-var_dump($_SESSION);
 $FORM = extractForm();
 // Dans TOUS les formulaires, je veux un paramètre route
 $ROUTE = extractRoute($FORM);

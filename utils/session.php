@@ -43,7 +43,7 @@ function getCompteIdFromSession(): ?int
     return isLogged() ? $_SESSION[COMPTE_ID] : NULL;
 }
 
-function getRoleIdFromSession()
+function getRoleIdFromSession() : ?int
 {
     return isLogged() ? $_SESSION[ROLE_ID] : NULL;
 }

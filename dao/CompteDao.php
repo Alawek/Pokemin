@@ -98,7 +98,7 @@ class CompteDao extends AbstractDao implements IDao
         $stmt->bindValue(':pwd',hashedPassword($compte->getPassword()));
         $stmt->bindValue(':pseudo',$compte->getPseudo());
         $stmt->bindValue(':dCreation',$compte->getDateCreation()->format(MYSQL_DATE_FORMAT));
-        $stmt->bindValue(':idRole', $compte->getRole());
+        $stmt->bindValue(':idRole', $compte->getRole()->getIdRole());
         
         try {
             $stmt->execute();
@@ -126,7 +126,7 @@ class CompteDao extends AbstractDao implements IDao
         $stmt->bindValue(':pseudo', $compte->getPseudo());
         $stmt->bindValue(':password', $compte->getPassword());
         $stmt->bindValue(':idCompte', $compte->getIdcompte(), PDO::PARAM_INT);
-        $stmt->bindValue(':idRole',$compte->getRole());
+        $stmt->bindValue(':idRole',$compte->getRole()->getIdRole());
         $stmt->execute();
     }
 
