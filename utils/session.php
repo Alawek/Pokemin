@@ -67,4 +67,5 @@ function login(Compte $compte)
 {
     $_SESSION[COMPTE_ID] = $compte->getIdCompte();
     $_SESSION[ROLE_ID] = $compte->getRole()->getIdRole();
+
 }
