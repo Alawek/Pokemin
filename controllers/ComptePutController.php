@@ -14,6 +14,7 @@ class ComptePutController extends AbstractController implements IController
     private ?string $email;
     private ?string $password;
     private ?string $pseudo;
+    private ?int $idRole;
 
 
     //construct
@@ -27,6 +28,7 @@ class ComptePutController extends AbstractController implements IController
         $this->email = null;
         $this->password = null;
         $this->pseudo = null;
+        $this->idRole = null;
     }
     //Méthode
     function checkForm()
@@ -83,6 +85,14 @@ class ComptePutController extends AbstractController implements IController
             }
             $this->pseudo = htmlspecialchars(trim($this->form['pseudo']), ENT_NOQUOTES, 'UTF-8');
         }
+
+        if (isset($this->form['idRole']) && !empty($this->form['idRole'])) {
+            if (!ctype_digit($this->form['idRole'])) {
+                error_log("CYBERSEC l'id role n'est pas un entier'");
+                _400_Bad_Request()
+            }
+            $this->idRole =  trim($this->form['pseudo']);
+        }
     }
 
     function checkRights()
@@ -107,6 +117,9 @@ class ComptePutController extends AbstractController implements IController
         }
         if ($this->pseudo != null) {
             $compte->setPseudo($this->pseudo);
+        }
+        if($this->idRole != null){
+            $compte->setRole($this->role);
         }
 
 

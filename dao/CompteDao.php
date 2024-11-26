@@ -8,6 +8,7 @@ require_once(ROOT . "/model/Compte.php");
 require_once(ROOT . "/utils/exceptions.php");
 require_once(ROOT . "/utils/functions.php");
 require_once(ROOT . "/exceptions/ConstraintUniqueException.php");
+require_once(ROOT . "/dao/RoleDao.php");
 //______REQUIRE_______________________________________________________________________________________________________________________________________________________________
 
 
@@ -17,6 +18,7 @@ class CompteDao extends AbstractDao implements IDao
 
     //______ATTRIBUT_______________________________________________________________________________________________________________________________________________________________
     private $pdo;
+    private RoleDao $roleDao;
 
     //______ATTRIBUT_______________________________________________________________________________________________________________________________________________________________
 
@@ -25,6 +27,7 @@ class CompteDao extends AbstractDao implements IDao
     function __construct()
     {
         $this->pdo = BddSingleton::getInstance()->getPDO();
+        $this->roleDao=new RoleDao();
     }
     //______CONSTRUCTEUR_______________________________________________________________________________________________________________________________________________________________
     //______METHODE/REQUETE SQL_______________________________________________________________________________________________________________________________________________________________
@@ -37,6 +40,7 @@ class CompteDao extends AbstractDao implements IDao
         $compte->setPseudo($row->pseudo); // ICI
         $compte->setPassword($keepPassword ? $row->password : NULL);
         $compte->setDateCreation(new DateTime($row->date_creation));
+        $compte->setRole($this->roleDao->findById($row->id_role));
         return $compte;
     }
 
@@ -47,6 +51,7 @@ class CompteDao extends AbstractDao implements IDao
         $compte->setPseudo($pseudo); // ICI
         $compte->setPassword($password);
         $compte->setDateCreation(new DateTime());
+        $compte->setRole($this->roleDao->findById(1));
         return $compte;
     }
 
@@ -87,12 +92,13 @@ class CompteDao extends AbstractDao implements IDao
 
     function insert(IEntity $compte){
         var_dump($compte);
-        $stmt=$this->pdo->prepare("INSERT INTO compte (email,password,pseudo,date_creation) VALUES ".
-                            "(:email,:pwd,:pseudo,:dCreation)");
+        $stmt=$this->pdo->prepare("INSERT INTO compte (email,password,pseudo,date_creation,id_role) VALUES ".
+                            "(:email,:pwd,:pseudo,:dCreation,:idRole)");
         $stmt->bindValue(':email', $compte->getEmail());
         $stmt->bindValue(':pwd',hashedPassword($compte->getPassword()));
         $stmt->bindValue(':pseudo',$compte->getPseudo());
         $stmt->bindValue(':dCreation',$compte->getDateCreation()->format(MYSQL_DATE_FORMAT));
+        $stmt->bindValue(':idRole', $compte->getRole());
         
         try {
             $stmt->execute();
@@ -115,11 +121,12 @@ class CompteDao extends AbstractDao implements IDao
     function update(IEntity $compte)
     {
 
-        $stmt = $this->pdo->prepare("UPDATE compte SET email=:email, pseudo=:pseudo, password=:password WHERE id_compte=:idCompte");
+        $stmt = $this->pdo->prepare("UPDATE compte SET email=:email, pseudo=:pseudo, password=:password,id_role=:idRole WHERE id_compte=:idCompte");
         $stmt->bindValue(':email', $compte->getEmail());
         $stmt->bindValue(':pseudo', $compte->getPseudo());
         $stmt->bindValue(':password', $compte->getPassword());
         $stmt->bindValue(':idCompte', $compte->getIdcompte(), PDO::PARAM_INT);
+        $stmt->bindValue(':idRole',$compte->getRole());
         $stmt->execute();
     }
 

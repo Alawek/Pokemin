@@ -5,15 +5,12 @@ require_once(ROOT . "/utils/IEntity.php");
 require_once(ROOT . "/utils/AbstractEntity.php");
 //______REQUIRE_______________________________________________________________________________________________________________________________________________________________
 
-class Compte extends AbstractEntity implements IEntity
+class Role extends AbstractEntity implements IEntity
 {
     //______ATTRIBUT_______________________________________________________________________________________________________________________________________________________________
-    private $idCompte;
-    private $email;
-    private $password;
-    private $dateCreation;
-    private $pseudo;
-    private $role;
+    private $idRole;
+    private $nom;
+
     //______ATTRIBUT_______________________________________________________________________________________________________________________________________________________________
 
     //______CONSTRUCTEUR_______________________________________________________________________________________________________________________________________________________________
@@ -25,85 +22,48 @@ class Compte extends AbstractEntity implements IEntity
 
     //______GETTER/SETTER_______________________________________________________________________________________________________________________________________________________________
 
-    function getIdCompte(): int
+    function getIdRole(): int
     {
-        return $this->idCompte;
+        return $this->idRole;
     }
 
-    function setIdCompte(int $id)
+    function setIdRole(int $id)
     {
-        $this->idCompte = $id;
+        $this->idRole = $id;
     }
 
-    function getEmail(): string
+    function getNom(): string
     {
-        return $this->email;
+        return $this->nom;
     }
 
-    function setEmail(string $email)
+    function setNom(string $Nom)
     {
-        $this->email = $email;
-    }
-
-    function getPassword(): string
-    {
-        return $this->password;
-    }
-
-    function setPassword(?string $pwd)
-    {
-        $this->password = $pwd;
-    }
-
-    function getDateCreation(): DateTime
-    {
-        return $this->dateCreation;
-    }
-
-    function setDateCreation(DateTime $date)
-    {
-        $this->dateCreation = $date;
+        $this->nom = $Nom;
     }
 
 
-    function getPseudo(): string
-    {
-        return $this->pseudo;
-    }
-
-    function setPseudo(string $pseudo)
-    {
-        $this->pseudo = $pseudo;
-    }
-
-    function getRole() : Role {
-        return $this->role;
-    }
-
-    function setRole(Role $Role) {
-        $this->role = $Role;
-    }
     //______GETTER/SETTER_______________________________________________________________________________________________________________________________________________________________
     //______METHODE_______________________________________________________________________________________________________________________________________________________________
     //______METHODE_______________________________________________________________________________________________________________________________________________________________
     //______METHODE STATIC_______________________________________________________________________________________________________________________________________________________________	
     // 		public static function createFromRow($row, bool $keepPassword = false) {
-    // 			$compte = new Compte();
-    // 			$compte->setIdCompte( intval($row->id_compte) );
-    // 			$compte->setEmail( $row->email );
-    // 			$compte->setPseudo($row->pseudo); // ICI
-    // 			$compte->setPassword( $keepPassword ? $row->password : NULL );
-    // 			$compte->setDateCreation( new DateTime($row->dateCreation) );
-    // 			return $compte;
+    // 			$Role = new Role();
+    // 			$Role->setIdRole( intval($row->id_Role) );
+    // 			$Role->setNom( $row->Nom );
+    // 			$Role->setPseudo($row->pseudo); // ICI
+    // 			$Role->setPassword( $keepPassword ? $row->password : NULL );
+    // 			$Role->setDateCreation( new DateTime($row->dateCreation) );
+    // 			return $Role;
     // 		}
 
-    // 		public static function create($email, $pseudo, $password) {
-    // 			$compte = new Compte();
-    // 			$compte->setEmail( $email );
-    // 			$compte->setPseudo($pseudo); // ICI
-    //             $compte->setPassword( $password );
-    //             $compte->setDateCreation( new DateTime() );
-    //             return $compte;
+    // 		public static function create($Nom, $pseudo, $password) {
+    // 			$Role = new Role();
+    // 			$Role->setNom( $Nom );
+    // 			$Role->setPseudo($pseudo); // ICI
+    //             $Role->setPassword( $password );
+    //             $Role->setDateCreation( new DateTime() );
+    //             return $Role;
     // 		}
     // //______METHODE STATIC_______________________________________________________________________________________________________________________________________________________________
 
