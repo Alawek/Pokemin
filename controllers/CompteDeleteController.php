@@ -36,7 +36,8 @@ class CompteDeleteController extends AbstractController implements IController{
             error_log("CYBERSEC L'id n'est pas présent dans la base de donnée");
             _404_Not_Found();
         }
-        $this->id=intval($this->form['id']);
+        $this->id = intval(trim($this->form['id']));
+
     }
     
 

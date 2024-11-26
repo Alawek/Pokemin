@@ -4,6 +4,7 @@ require_once(ROOT . "/model/Compte.php");
 
 define("START_TIME", "startTime");
 define("COMPTE_ID", "compteId");
+define("ROLE_ID", "roleId");
 
 function initSession()
 {
@@ -42,6 +43,11 @@ function getCompteIdFromSession(): ?int
     return isLogged() ? $_SESSION[COMPTE_ID] : NULL;
 }
 
+function getRoleIdFromSession() : ?int
+{
+    return isLogged() ? $_SESSION[ROLE_ID] : NULL;
+}
+
 function getTimeOut(): int
 {
     return $_SESSION[START_TIME] + getMaxTime();
@@ -60,4 +66,5 @@ function getStartTime()
 function login(Compte $compte)
 {
     $_SESSION[COMPTE_ID] = $compte->getIdCompte();
+    $_SESSION[ROLE_ID] = $compte->getRole()->getIdRole();
 }

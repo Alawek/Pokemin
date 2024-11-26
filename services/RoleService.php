@@ -3,24 +3,24 @@
 require_once(ROOT . "/utils/IService.php");
 require_once(ROOT . "/utils/AbstractService.php");
 require_once(ROOT . "/utils/IDao.php");
-require_once(ROOT . "/dao/PokeminDao.php");
-require_once(ROOT . "/model/Pokemin.php");
+require_once(ROOT . "/dao/RoleDao.php");
+require_once(ROOT . "/model/Role.php");
 //______REQUIRE_______________________________________________________________________________________________________________________________________________________________
 
 
 
-class PokeminService extends AbstractService implements IService
+class RoleService extends AbstractService implements IService
 {
     //______ATTRIBUT_______________________________________________________________________________________________________________________________________________________________
 
-    private PokeminDao $dao;
+    private RoleDao $dao;
 
     //______ATTRIBUT_______________________________________________________________________________________________________________________________________________________________
     //______CONSTRUCTEUR_______________________________________________________________________________________________________________________________________________________________
 
     function __construct()
     {
-        $this->dao = new PokeminDao();
+        $this->dao = new RoleDao();
     }
     //______CONSTRUCTEUR_______________________________________________________________________________________________________________________________________________________________
 
@@ -33,12 +33,12 @@ class PokeminService extends AbstractService implements IService
 
     function insert(IEntity $c)
     {
-        //Code métier, un compte est forcément un rédacteur
+        //Code métier, un Role est forcément un rédacteur
         return $this->dao->insert($c);
     }
 
 
-    public function findById(int $id): ?Pokemin
+    public function findById(int $id): ?Role
     {
         return $this->dao->findById($id);
     }
@@ -47,11 +47,6 @@ class PokeminService extends AbstractService implements IService
         return $this->dao->delete($id);
     }
 
-    public function update(IEntity $pokemin){
-        return $this->dao->update($pokemin);
-    }
-
-    
     //______METHODE_______________________________________________________________________________________________________________________________________________________________
 
 }

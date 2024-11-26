@@ -2,12 +2,12 @@
 require_once(ROOT . "/utils/IController.php");
 require_once(ROOT . "/utils/AbstractController.php");
 require_once(ROOT . "/utils/functions.php");
-require_once(ROOT . "/services/CompteService.php");
+require_once(ROOT . "/services/PokeminService.php");
 
-class CompteGetController extends AbstractController implements IController
+class PokeminGetController extends AbstractController implements IController
 {
 
-    private CompteService $service;
+    private PokeminService $service;
     private int $id;
 
     //construct
@@ -16,14 +16,14 @@ class CompteGetController extends AbstractController implements IController
     {
         //Appel du constructeur de la classe mère AbstractController
         parent::__construct($form, $controllerName);
-        $this->service = new CompteService();
+        $this->service = new PokeminService();
     }
     //Méthode
     function checkForm()
     {
         if (isset($this->form['id']) && !empty($this->form['id'])) {
             if(!$this->service->findById($this->form['id'])){
-                error_log("FORM Article introuvable");
+                error_log("FORM Pokemin introuvable");
                 _404_Not_Found();
             }
         }

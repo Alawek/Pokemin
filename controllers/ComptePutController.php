@@ -14,6 +14,7 @@ class ComptePutController extends AbstractController implements IController
     private ?string $email;
     private ?string $password;
     private ?string $pseudo;
+    private ?int $idRole;
 
 
     //construct
@@ -27,6 +28,7 @@ class ComptePutController extends AbstractController implements IController
         $this->email = null;
         $this->password = null;
         $this->pseudo = null;
+        $this->idRole = null;
     }
     //Méthode
     function checkForm()
@@ -54,9 +56,9 @@ class ComptePutController extends AbstractController implements IController
         if (!$this->service->findById($this->form['idCompte'])) {
             headerCustom(480, "Compte inexistant");
         }
-        $this->idCompte = $this->form['idCompte'];
+        $this->idCompte = intval(trim($this->form['idCompte']));
 
-        if (isset($this->form['email'])) {
+        if (isset($this->form['email']) && !empty($this->form['email'])) {
             if (!isEmailVerify($this->form['email'])) {
                 headerCustom(840, "Votre adresse email n'est pas au bon format");
             }
@@ -64,24 +66,32 @@ class ComptePutController extends AbstractController implements IController
                 error_log("CYBERSEC l'email est déja utilisé");
                 headerCustom(839, "Votre adresse email est deja utiliser");
             }
-            $this->email = $this->form['email'];
+            $this->email = htmlspecialchars(trim($this->form['email']), ENT_NOQUOTES, 'UTF-8');
         }
 
-        if (isset($this->form['password'])) {
+        if (isset($this->form['password']) && !empty($this->form['password'])) {
             if (!checkPassword($this->form['password'])) {
                 error_log("CYBERSEC Le mot de passe n'est pas assez fort");
                 headerCustom(837, "Votre mot de passe n'est pas assez fort");
             }
-            $this->password = hashedPassword($this->form['password']);
-            
+            $this->password = hashedPassword(htmlspecialchars(trim($this->form['password'])), ENT_NOQUOTES, 'UTF-8');
+
         }
 
-        if (isset($this->form['pseudo'])) {
+        if (isset($this->form['pseudo']) && !empty($this->form['pseudo'])) {
             if (!$this->service->pseudoIsAlready($this->form['pseudo'])) {
                 error_log("CYBERSEC le pseudo est deja utiliser");
                 headerCustom(838, "Votre pseudo est deja utiliser");
             }
-            $this->pseudo = $this->form['pseudo'];
+            $this->pseudo = htmlspecialchars(trim($this->form['pseudo']), ENT_NOQUOTES, 'UTF-8');
+        }
+
+        if (isset($this->form['idRole']) && !empty($this->form['idRole'])) {
+            if (!ctype_digit($this->form['idRole'])) {
+                error_log("CYBERSEC l'id role n'est pas un entier'");
+                _400_Bad_Request()
+            }
+            $this->idRole =  trim($this->form['pseudo']);
         }
     }
 
@@ -107,6 +117,9 @@ class ComptePutController extends AbstractController implements IController
         }
         if ($this->pseudo != null) {
             $compte->setPseudo($this->pseudo);
+        }
+        if($this->idRole != null){
+            $compte->setRole($this->role);
         }
 
 
