@@ -46,6 +46,9 @@ class CompteDeleteController extends AbstractController implements IController{
         if(!isLogged()){
             _401_Unauthorized();
         }
+        if($this->id != getCompteIdFromSession() && getRoleIdFromSession()<2){
+            _401_Unauthorized();
+        }
 
 
     }
