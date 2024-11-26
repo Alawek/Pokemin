@@ -28,4 +28,11 @@ Pokemin est un jeu RPG sur navigateur inspiré des jeux de capture et de combat 
 <!-- define("USERNAME", "???");
 define("PASSWD","???");
 define("ROOT", dirname(__FILE__) ); // constante pour chemin de chargement
- 
+ <!--
+Pokemin base CRUD OK
+Compte base CRUD OK
+ROLE OK
+LOGIN OK
+LOGOUT OK
+SESSION OK
+  -->
